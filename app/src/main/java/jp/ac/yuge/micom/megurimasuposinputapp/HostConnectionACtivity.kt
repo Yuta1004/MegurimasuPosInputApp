@@ -38,6 +38,13 @@ class HostConnectionACtivity : AppCompatActivity() {
             }
         }
 
+        // 接続解除ボタン
+        findViewById<Button>(R.id.close_button).setOnClickListener {
+            thread {
+                closeSocket()
+            }
+        }
+
         // Activity起動時に接続を受け付けるようにする
         thread {
             initSocket()

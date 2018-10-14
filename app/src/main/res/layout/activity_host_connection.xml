@@ -62,5 +62,18 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:text="PCからの再接続を受け付ける" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/close_button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:text="PCとの接続を解除する" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
