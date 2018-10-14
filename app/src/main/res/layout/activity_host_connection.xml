@@ -18,11 +18,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/receive_textview"
+            android:id="@+id/tcp_log_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="#000"/>
+            android:textColor="#000" />
 
         <Space
             android:layout_width="match_parent"

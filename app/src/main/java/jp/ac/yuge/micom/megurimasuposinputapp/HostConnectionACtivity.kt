@@ -102,7 +102,7 @@ class HostConnectionACtivity : AppCompatActivity() {
 
     private fun writeLog(text: String){
         handler.post {
-            findViewById<TextView>(R.id.receive_textview).text = text
+            findViewById<TextView>(R.id.tcp_log_textview).text = text
         }
     }
 }
