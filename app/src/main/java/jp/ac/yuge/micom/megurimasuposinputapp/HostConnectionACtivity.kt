@@ -108,8 +108,7 @@ class HostConnectionACtivity : AppCompatActivity() {
         try{
             val reader = BufferedReader(InputStreamReader(socket!!.getInputStream()))
             while(true) {
-                val receiveText = reader.readLine()?: "end"
-                if (receiveText == "end") { break }
+                val receiveText = reader.readLine()?: break
                 writeLog(receiveText)
             }
             closeSocket()
