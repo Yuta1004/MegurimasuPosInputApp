@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".CheckDerectionActivity" />
-        <activity android:name=".HostConnectionACtivity"></activity>
+        <activity android:name=".HostConnectionACtivity"/>
+        <activity android:name=".InputOpponentPosActivity"/>
     </application>
 
 </manifest>
