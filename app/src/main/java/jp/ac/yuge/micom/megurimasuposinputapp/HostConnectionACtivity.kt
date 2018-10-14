@@ -1,5 +1,6 @@
 package jp.ac.yuge.micom.megurimasuposinputapp
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -20,6 +21,12 @@ class HostConnectionACtivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_host_connection)
+
+        // 対戦相手位置情報入力ボタン
+        findViewById<Button>(R.id.input_pos_button).setOnClickListener {
+            val inputOpponentPosActivity = Intent(this, InputOpponentPosActivity::class.java)
+            startActivity(inputOpponentPosActivity)
+        }
 
         // 再接続受け付け開始ボタン
         findViewById<Button>(R.id.reopen_button).setOnClickListener {
