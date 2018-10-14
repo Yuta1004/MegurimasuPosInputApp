@@ -25,7 +25,7 @@ class HostConnectionACtivity : AppCompatActivity() {
         // 対戦相手位置情報入力ボタン
         findViewById<Button>(R.id.input_pos_button).setOnClickListener {
             val inputOpponentPosActivity = Intent(this, InputOpponentPosActivity::class.java)
-            startActivity(inputOpponentPosActivity)
+            startActivityForResult(inputOpponentPosActivity, 0)
         }
 
         // 再接続受け付け開始ボタン
@@ -51,7 +51,19 @@ class HostConnectionACtivity : AppCompatActivity() {
         closeSocket()
     }
 
-    /* ----------以下TCP通信を担う関数たち ---------- */
+    // Activityを呼んだ結果が返ってくる
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when(resultCode){
+            InputOpponentPosActivity.RESULT_CODE -> {
+                val opponentPos = data!!.getIntArrayExtra("OpponentPos")
+                thread {
+                    sendData("OpponentPos:${opponentPos[0]}:${opponentPos[1]}")
+                }
+            }
+        }
+    }
+
+    /* ----------以下TCP通信を担う関数たち ※スレッド内で呼ぶこと！！ ---------- */
 
     private fun initSocket(){
         if(isConnecting){ return }
@@ -105,6 +117,7 @@ class HostConnectionACtivity : AppCompatActivity() {
             val writer = socket!!.getOutputStream()
             writer.write((text + "\n").toByteArray())
         }catch(e: Exception){
+            e.printStackTrace()
             closeSocket()
         }
     }
