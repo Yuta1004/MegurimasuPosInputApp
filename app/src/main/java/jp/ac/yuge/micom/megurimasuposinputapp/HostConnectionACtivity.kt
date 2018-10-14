@@ -51,6 +51,8 @@ class HostConnectionACtivity : AppCompatActivity() {
         closeSocket()
     }
 
+    /* ----------以下TCP通信を担う関数たち ---------- */
+
     private fun initSocket(){
         if(isConnecting){ return }
         isConnecting = true
