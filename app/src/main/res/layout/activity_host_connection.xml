@@ -21,12 +21,14 @@
             android:id="@+id/tcp_log_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:minLines="5"
+            android:maxLines="5"
+            android:background="@drawable/add_stroke"
             android:textColor="#000" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="10dp"
             android:layout_weight="1" />
 
         <Button

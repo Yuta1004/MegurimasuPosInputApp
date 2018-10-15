@@ -18,6 +18,7 @@ class HostConnectionACtivity : AppCompatActivity() {
     private var socket: Socket? = null
     private var isConnecting = false
     private val handler = Handler()
+    private val tcpLog = arrayListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,8 +93,8 @@ class HostConnectionACtivity : AppCompatActivity() {
 
         try{
             // サーバを建てる
-            server = ServerSocket(6666); writeLog("Waiting...")
-            socket = server!!.accept(); writeLog("Connection Success!")
+            server = ServerSocket(6666); writeLog("PCからの接続要求を待機しています…")
+            socket = server!!.accept(); writeLog("接続に成功しました！")
         }catch(e: Exception){
 //            e.printStackTrace()
             closeSocket()
@@ -110,7 +111,10 @@ class HostConnectionACtivity : AppCompatActivity() {
             server!!.close()
             server = null
         }
-        writeLog("Connection Close")
+
+        if(server != null || socket != null || isConnecting) {
+            writeLog("接続を解除しました")
+        }
 
         isConnecting = false
     }
@@ -131,18 +135,31 @@ class HostConnectionACtivity : AppCompatActivity() {
 
     // データ送信
     private fun sendData(text: String){
+        if(!isConnecting){ writeLog("PCに接続されていません"); return }
+
         try{
             val writer = socket!!.getOutputStream()
             writer.write((text + "\n").toByteArray())
         }catch(e: Exception){
 //            e.printStackTrace()
+            writeLog("データ送信に失敗しました -> ${e.message}")
             closeSocket()
         }
     }
 
+    // ログをTextViewに表示
     private fun writeLog(text: String){
+        if(tcpLog.size > 1 && text in tcpLog[tcpLog.size-1]&& text == "接続を解除しました"){
+            return
+        }
+
+        tcpLog.add(" ${tcpLog.size}: $text \n")
+
         handler.post {
-            findViewById<TextView>(R.id.tcp_log_textview).text = text
+            val logView = findViewById<TextView>(R.id.tcp_log_textview)
+            logView.text = tcpLog
+                    .filterIndexed { idx, _ -> idx >= tcpLog.size-5 }
+                    .reduce { s1, s2 -> s1+s2 }
         }
     }
 }
