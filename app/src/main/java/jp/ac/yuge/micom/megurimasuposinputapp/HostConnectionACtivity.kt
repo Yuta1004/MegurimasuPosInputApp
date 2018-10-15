@@ -94,8 +94,6 @@ class HostConnectionACtivity : AppCompatActivity() {
             // サーバを建てる
             server = ServerSocket(6666); writeLog("Waiting...")
             socket = server!!.accept(); writeLog("Connection Success!")
-            sendData("HElloWorld")
-            sendData("こんにちは！")
         }catch(e: Exception){
 //            e.printStackTrace()
             closeSocket()
