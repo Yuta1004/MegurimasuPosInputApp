@@ -140,6 +140,14 @@ class HostConnectionACtivity : AppCompatActivity() {
         try{
             val writer = socket!!.getOutputStream()
             writer.write((text + "\n").toByteArray())
+
+            // ログ
+            if("QR" in text){
+                writeLog("QRデータを送信しました")
+            }else if("Pos" in text){
+                writeLog("相手チームの位置情報を送信しました")
+            }
+
         }catch(e: Exception){
 //            e.printStackTrace()
             writeLog("データ送信に失敗しました -> ${e.message}")
