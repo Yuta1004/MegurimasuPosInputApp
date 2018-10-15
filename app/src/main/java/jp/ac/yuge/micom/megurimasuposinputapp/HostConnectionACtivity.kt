@@ -72,14 +72,14 @@ class HostConnectionACtivity : AppCompatActivity() {
             InputOpponentPosActivity.RESULT_CODE -> {
                 val opponentPos = data!!.getIntArrayExtra("OpponentPos")
                 thread {
-                    sendData("OpponentPos:${opponentPos[0]}:${opponentPos[1]}")
+                    sendData("OpponentPos@${opponentPos[0]}:${opponentPos[1]}")
                 }
             }
 
             QRReadActivity.RESULT_CODE -> {
                 val qrData = data!!.getStringExtra("QRData")
                 thread {
-                    sendData("QRData:$qrData")
+                    sendData("QRData@$qrData")
                 }
             }
         }
