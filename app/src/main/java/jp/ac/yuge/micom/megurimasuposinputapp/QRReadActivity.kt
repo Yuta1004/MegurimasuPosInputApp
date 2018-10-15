@@ -11,7 +11,7 @@ import com.journeyapps.barcodescanner.DecoratedBarcodeView
 
 class QRReadActivity : AppCompatActivity() {
     companion object {
-       const val RESULT_CODE = 100
+       const val RESULT_CODE = 200
     }
 
     private var qrReader: DecoratedBarcodeView? = null
