@@ -1,5 +1,6 @@
 package jp.ac.yuge.micom.megurimasuposinputapp
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -21,6 +22,12 @@ class HostConnectionACtivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_host_connection)
+
+        // QRコード読み取りボタン
+        findViewById<Button>(R.id.read_qr_button).setOnClickListener {
+            val qrReadActivity = Intent(this, QRReadActivity::class.java)
+            startActivityForResult(qrReadActivity, 0)
+        }
 
         // 対戦相手位置情報入力ボタン
         findViewById<Button>(R.id.input_pos_button).setOnClickListener {
@@ -65,6 +72,13 @@ class HostConnectionACtivity : AppCompatActivity() {
                 val opponentPos = data!!.getIntArrayExtra("OpponentPos")
                 thread {
                     sendData("OpponentPos:${opponentPos[0]}:${opponentPos[1]}")
+                }
+            }
+
+            QRReadActivity.RESULT_CODE -> {
+                val qrData = data!!.getStringExtra("QRData")
+                thread {
+                    sendData("QRData:$qrData")
                 }
             }
         }
