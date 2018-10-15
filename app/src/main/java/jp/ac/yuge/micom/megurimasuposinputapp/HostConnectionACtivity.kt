@@ -97,7 +97,7 @@ class HostConnectionACtivity : AppCompatActivity() {
             sendData("HElloWorld")
             sendData("こんにちは！")
         }catch(e: Exception){
-            e.printStackTrace()
+//            e.printStackTrace()
             closeSocket()
         }
     }
@@ -137,7 +137,7 @@ class HostConnectionACtivity : AppCompatActivity() {
             val writer = socket!!.getOutputStream()
             writer.write((text + "\n").toByteArray())
         }catch(e: Exception){
-            e.printStackTrace()
+//            e.printStackTrace()
             closeSocket()
         }
     }
