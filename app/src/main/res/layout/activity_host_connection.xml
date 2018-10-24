@@ -28,58 +28,103 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="10dp"
+            android:layout_height="30dp"
             android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/read_qr_button"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:textSize="18sp"
-            android:text="QRコードを撮影する" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Button
+                android:id="@+id/read_qr_button"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="QRコードを撮影する"
+                android:textSize="18sp" />
+
+            <Space
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/setting_button"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="システムの設定"
+                android:textSize="18sp" />
+
+        </TableRow>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="20dp"
             android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/input_pos_button"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:textSize="18sp"
-            android:text="相手チームの座標を入力する" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Button
+                android:id="@+id/input_pos_button"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="自チームの行動を入力する"
+                android:textSize="18sp" />
+
+            <Space
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/input_pos_button2"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="相手チームの行動を入力する"
+                android:textSize="18sp" />
+        </TableRow>
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="20dp"
             android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/reopen_button"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:textSize="18sp"
-            android:text="PCからの再接続を受け付ける" />
-
-        <Space
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_weight="1" />
+            android:layout_height="match_parent" >
 
-        <Button
-            android:id="@+id/close_button"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:textSize="18sp"
-            android:text="PCとの接続を解除する" />
+            <Button
+                android:id="@+id/reopen_button"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="PCからの再接続を受け付ける"
+                android:textSize="18sp" />
+
+            <Space
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/close_button"
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:text="PCとの接続を解除する"
+                android:textSize="18sp" />
+        </TableRow>
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
