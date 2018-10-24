@@ -70,7 +70,7 @@
             android:layout_height="match_parent" >
 
             <Button
-                android:id="@+id/input_pos_button"
+                android:id="@+id/ally_input_button"
                 android:layout_width="200dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
@@ -84,7 +84,7 @@
                 android:layout_weight="1" />
 
             <Button
-                android:id="@+id/input_pos_button2"
+                android:id="@+id/opponent_input_button"
                 android:layout_width="200dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"

@@ -22,7 +22,7 @@
         </activity>
         <activity android:name=".CheckDerectionActivity" />
         <activity android:name=".HostConnectionACtivity" />
-        <activity android:name=".InputOpponentPosActivity" />
+        <activity android:name=".InputActionActivity" />
         <activity android:name=".QRReadActivity"></activity>
     </application>
 

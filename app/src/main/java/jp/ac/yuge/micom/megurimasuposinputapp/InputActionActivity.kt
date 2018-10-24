@@ -7,18 +7,30 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 
-class InputOpponentPosActivity : AppCompatActivity(){
+class InputActionActivity : AppCompatActivity(){
     companion object {
-        const val RESULT_CODE = 100
+        // 100: 自チーム, 150: 相手チーム
+        const val ALLY_RESULTCODE = 100
+        const val OPPONENT_RESULTCODE = 150
     }
 
-    private val agentNames = listOf("相手エージェント１", "相手エージェント２")
+    private var resultCode = 150
+    private val agentNames = listOf("エージェント１", "エージェント２")
     private val inpPosList = arrayListOf<Int>()
     private var isPanelRemoval = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_input_opponent_pos)
+
+        // 自チームor相手チームどちらの行動入力なのか
+        val requestIntent = intent
+        resultCode = requestIntent.getIntExtra("SETRESULT", 150)
+        title = if(resultCode == 100){
+            "自チーム行動入力"
+        }else{
+            "相手チーム行動入力"
+        }
 
         // 入力対象エージェント名セット
         findViewById<TextView>(R.id.agent_name_textview).text = agentNames[0]
@@ -57,8 +69,8 @@ class InputOpponentPosActivity : AppCompatActivity(){
 
         // 十分な量位置情報が入力された
         val resultInent = Intent()
-        resultInent.putExtra("OpponentPos", inpPosList.toIntArray())
-        setResult(RESULT_CODE, resultInent)
+        resultInent.putExtra("Action", inpPosList.toIntArray())
+        setResult(resultCode, resultInent)
         finish()
     }
 }

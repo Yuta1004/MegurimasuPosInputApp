@@ -1,6 +1,5 @@
 package jp.ac.yuge.micom.megurimasuposinputapp
 
-import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -30,9 +29,17 @@ class HostConnectionACtivity : AppCompatActivity() {
             startActivityForResult(qrReadActivity, 0)
         }
 
+        // 自チーム位置情報入力ボタン
+        findViewById<Button>(R.id.ally_input_button).setOnClickListener {
+            val inputOpponentPosActivity = Intent(this, InputActionActivity::class.java)
+            inputOpponentPosActivity.putExtra("SETRESULT", 100)
+            startActivityForResult(inputOpponentPosActivity, 0)
+        }
+
         // 対戦相手位置情報入力ボタン
-        findViewById<Button>(R.id.input_pos_button).setOnClickListener {
-            val inputOpponentPosActivity = Intent(this, InputOpponentPosActivity::class.java)
+        findViewById<Button>(R.id.opponent_input_button).setOnClickListener {
+            val inputOpponentPosActivity = Intent(this, InputActionActivity::class.java)
+            inputOpponentPosActivity.putExtra("SETRESULT", 150)
             startActivityForResult(inputOpponentPosActivity, 0)
         }
 
@@ -69,8 +76,15 @@ class HostConnectionACtivity : AppCompatActivity() {
     // Activityを呼んだ結果が返ってくる
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         when(resultCode){
-            InputOpponentPosActivity.RESULT_CODE -> {
-                val opponentPos = data!!.getIntArrayExtra("OpponentPos")
+            InputActionActivity.ALLY_RESULTCODE -> {
+                val opponentPos = data!!.getIntArrayExtra("Action")
+                thread {
+                    sendData("ManualActionData@${opponentPos[0]}:${opponentPos[1]}")
+                }
+            }
+
+            InputActionActivity.OPPONENT_RESULTCODE -> {
+                val opponentPos = data!!.getIntArrayExtra("Action")
                 thread {
                     sendData("OpponentPos@${opponentPos[0]}:${opponentPos[1]}")
                 }
