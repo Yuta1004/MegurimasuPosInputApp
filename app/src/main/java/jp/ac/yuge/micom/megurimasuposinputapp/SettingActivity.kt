@@ -15,6 +15,18 @@ class SettingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
 
+        // 設定内容取得
+        val settedMode = intent.getStringExtra("Mode")
+        val settedDepth = intent.getIntExtra("Depth", 2)
+        val settedStrategy = intent.getIntArrayExtra("Strategy")
+
+        // 設定内容判定
+        findViewById<Spinner>(R.id.mode_select).setSelection(if(settedMode == "AI") 0 else 1)
+        findViewById<Spinner>(R.id.depth_num).setSelection(settedDepth)
+        findViewById<Spinner>(R.id.bruteforce_num).setSelection(settedStrategy[0])
+        findViewById<Spinner>(R.id.stalker_num).setSelection(settedStrategy[1])
+        findViewById<Spinner>(R.id.random_num).setSelection(settedStrategy[2])
+
         // 送信ボタン
         findViewById<Button>(R.id.setting_send_button).setOnClickListener {
             // 情報取得

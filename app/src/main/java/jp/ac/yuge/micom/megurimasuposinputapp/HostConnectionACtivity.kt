@@ -19,6 +19,11 @@ class HostConnectionACtivity : AppCompatActivity() {
     private val handler = Handler()
     private val tcpLog = arrayListOf<String>()
 
+    // 設定内容
+    private var mode = "AI"
+    private var depth = 2
+    private var strategyProb = arrayOf(1, 1, 1)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_host_connection)
@@ -32,6 +37,9 @@ class HostConnectionACtivity : AppCompatActivity() {
         // システム設定ボタン
         findViewById<Button>(R.id.setting_button).setOnClickListener {
             val settingActivity = Intent(this, SettingActivity::class.java)
+            settingActivity.putExtra("Mode", mode)
+            settingActivity.putExtra("Depth", depth)
+            settingActivity.putExtra("Strategy", strategyProb.toIntArray())
             startActivityForResult(settingActivity, 0)
         }
 
@@ -104,18 +112,28 @@ class HostConnectionACtivity : AppCompatActivity() {
             }
 
             SettingActivity.RESUT_CODE -> {
-                val mode = data!!.getStringExtra("Mode")
-                val depth = data.getIntExtra("Depth", 2)
-                val bruteforce = data.getIntExtra("BruteForce", 2)
-                val stalker = data.getIntExtra("Stalker", 2)
-                val random = data.getIntExtra("Random", 2)
+                mode = if(data!!.getStringExtra("Mode") == "オートモード") "AI" else "Manual"
+                depth = data.getIntExtra("Depth", 2)
+                strategyProb[0] = data.getIntExtra("BruteForce", 2)
+                strategyProb[1] = data.getIntExtra("Stalker", 2)
+                strategyProb[2] = data.getIntExtra("Random", 2)
                 thread {
-                    sendData("SwitchControl@${if(mode == "オートモード") "AI" else "Manual"}")
+                    sendData("SwitchControl@${mode}")
                     sendData("SetDepth@$depth")
-                    sendData("SetStrategy@$bruteforce:$stalker:$random")
+                    sendData("SetStrategy@${strategyProb[0]}:${strategyProb[1]}:${strategyProb[2]}")
                 }
             }
         }
+    }
+
+    private fun refrectionSetting(text: String){
+        val data = text.split("@")[1].split(":")
+
+        mode = data[0]
+        depth = data[1].toInt()
+        strategyProb[0] = data[2].toInt()
+        strategyProb[1] = data[3].toInt()
+        strategyProb[2] = data[4].toInt()
     }
 
     /* ----------以下TCP通信を担う関数たち ※スレッド内で呼ぶこと！！ ---------- */
@@ -158,7 +176,13 @@ class HostConnectionACtivity : AppCompatActivity() {
             val reader = BufferedReader(InputStreamReader(socket!!.getInputStream()))
             while(true) {
                 val receiveText = reader.readLine()?: break
-                writeLog(receiveText)
+
+                // 設定内容なら専用のメソッドに投げる
+                if(receiveText.split("@")[0] == "Setting"){
+                    refrectionSetting(receiveText)
+                }else{
+                    writeLog(receiveText)
+                }
             }
             closeSocket()
         }catch(e: Exception){
