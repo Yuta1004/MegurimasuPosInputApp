@@ -102,15 +102,18 @@
                 android:textAlignment="center"
                 android:text="←" />
 
-            <ImageView
-                android:id="@+id/imageView"
+            <Button
+                android:id="@+id/action_8_button"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:src="@android:drawable/sym_def_app_icon" />
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:text="停滞"/>
 
             <Button
                 android:id="@+id/action_2_button"

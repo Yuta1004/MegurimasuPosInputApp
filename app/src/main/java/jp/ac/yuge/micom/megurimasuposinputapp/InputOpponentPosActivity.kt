@@ -32,6 +32,7 @@ class InputOpponentPosActivity : AppCompatActivity(){
         findViewById<Button>(R.id.action_5_button).setOnClickListener { posButtonPushed(5) }
         findViewById<Button>(R.id.action_6_button).setOnClickListener { posButtonPushed(6) }
         findViewById<Button>(R.id.action_7_button).setOnClickListener { posButtonPushed(7) }
+        findViewById<Button>(R.id.action_8_button).setOnClickListener { posButtonPushed(8) }
 
         // パネル除去ボタン
         findViewById<Button>(R.id.removal_panel_button).setOnClickListener {
