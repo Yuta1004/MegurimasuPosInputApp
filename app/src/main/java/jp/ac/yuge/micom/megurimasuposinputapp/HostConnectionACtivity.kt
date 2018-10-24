@@ -29,6 +29,12 @@ class HostConnectionACtivity : AppCompatActivity() {
             startActivityForResult(qrReadActivity, 0)
         }
 
+        // システム設定ボタン
+        findViewById<Button>(R.id.setting_button).setOnClickListener {
+            val settingActivity = Intent(this, SettingActivity::class.java)
+            startActivityForResult(settingActivity, 0)
+        }
+
         // 自チーム位置情報入力ボタン
         findViewById<Button>(R.id.ally_input_button).setOnClickListener {
             val inputOpponentPosActivity = Intent(this, InputActionActivity::class.java)
@@ -94,6 +100,19 @@ class HostConnectionACtivity : AppCompatActivity() {
                 val qrData = data!!.getStringExtra("QRData")
                 thread {
                     sendData("QRData@$qrData")
+                }
+            }
+
+            SettingActivity.RESUT_CODE -> {
+                val mode = data!!.getStringExtra("Mode")
+                val depth = data.getIntExtra("Depth", 2)
+                val bruteforce = data.getIntExtra("BruteForce", 2)
+                val stalker = data.getIntExtra("Stalker", 2)
+                val random = data.getIntExtra("Random", 2)
+                thread {
+                    sendData("SwitchControl@${if(mode == "オートモード") "AI" else "Manual"}")
+                    sendData("SetDepth@$depth")
+                    sendData("SetStrategy@$bruteforce:$stalker:$random")
                 }
             }
         }
